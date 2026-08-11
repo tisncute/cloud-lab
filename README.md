@@ -1,4 +1,5 @@
 # Cloud Computing Laboratory
-Student Name:
-Student ID:
-Class:
+
+Student Name: Le Duong Huynh Tin
+Student ID: 222908
+Class: DH23TIN09
