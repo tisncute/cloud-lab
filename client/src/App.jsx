@@ -4,7 +4,7 @@ function App() {
   const [students, setStudents] = useState([]);
   const [formData, setFormData] = useState({ studentId: '', name: '', email: '' });
   
-  const API_URL = 'https://curly-doodle-977xwwjqvx46hp5rr-5000.app.github.dev';
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const fetchStudents = () => {
     fetch(`${API_URL}/api/students`).then(res => res.json()).then(data => setStudents(data));
@@ -33,6 +33,35 @@ function App() {
     .catch(err => console.error(err));
   };
 
+  // Hàm xử lý Xóa
+const handleDelete = (id) => {
+  if (window.confirm("Bạn có chắc chắn muốn xóa sinh viên này?")) {
+    fetch(`${API_URL}/api/students/${id}`, { method: 'DELETE' })
+      .then(() => {
+        alert("Đã xóa sinh viên!");
+        fetchStudents(); // Cập nhật lại danh sách
+      })
+      .catch(err => console.error(err));
+  }
+};
+
+// Hàm xử lý Cập nhật (Sửa nhanh bằng prompt cho đơn giản)
+const handleUpdate = (id, currentEmail) => {
+  const newEmail = prompt("Nhập Email mới:", currentEmail);
+  if (newEmail) {
+    fetch(`${API_URL}/api/students/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: newEmail })
+    })
+    .then(() => {
+      alert("Cập nhật thành công!");
+      fetchStudents();
+    })
+    .catch(err => console.error(err));
+  }
+};
+
   return (
     <div>
       <h1>Quản lý sinh viên</h1>
@@ -47,7 +76,13 @@ function App() {
 
       <h2>Danh sách</h2>
       <ul>
-        {students.map(sv => <li key={sv._id}>{sv.studentId} - {sv.name} - {sv.email}</li>)}
+        {students.map(sv => (
+          <li key={sv._id}>
+            {sv.studentId} - {sv.name} - {sv.email}
+            <button onClick={() => handleUpdate(sv._id, sv.email)} style={{marginLeft: '10px'}}>Sửa</button>
+            <button onClick={() => handleDelete(sv._id)} style={{marginLeft: '5px'}}>Xóa</button>
+          </li>
+        ))}
       </ul>
     </div>
   );
