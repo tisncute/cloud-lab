@@ -75,15 +75,41 @@ const handleUpdate = (id, currentEmail) => {
       </form>
 
       <h2>Danh sách</h2>
-      <ul>
-        {students.map(sv => (
-          <li key={sv._id}>
-            {sv.studentId} - {sv.name} - {sv.email}
-            <button onClick={() => handleUpdate(sv._id, sv.email)} style={{marginLeft: '10px'}}>Sửa</button>
-            <button onClick={() => handleDelete(sv._id)} style={{marginLeft: '5px'}}>Xóa</button>
-          </li>
-        ))}
-      </ul>
+<ul>
+  {students.map(sv => (
+    <li key={sv._id} style={{ marginBottom: '10px', padding: '10px', backgroundColor: '#f8f9fa', borderRadius: '5px', display: 'flex', alignItems: 'center' }}>
+      <span style={{ flexGrow: 1, color: '#333' }}>
+        <strong>{sv.studentId}</strong> - {sv.name} - {sv.email}
+      </span>
+      <button 
+        onClick={() => handleUpdate(sv._id, sv.email)} 
+        style={{ 
+          marginLeft: '10px', 
+          padding: '5px 15px', 
+          backgroundColor: '#0d6efd', 
+          color: 'white', 
+          border: 'none', 
+          borderRadius: '4px', 
+          cursor: 'pointer' 
+        }}>
+        Sửa
+      </button>
+      <button 
+        onClick={() => handleDelete(sv._id)} 
+        style={{ 
+          marginLeft: '5px', 
+          padding: '5px 15px', 
+          backgroundColor: '#dc3545', 
+          color: 'white', 
+          border: 'none', 
+          borderRadius: '4px', 
+          cursor: 'pointer' 
+        }}>
+        Xóa
+      </button>
+    </li>
+  ))}
+</ul>
     </div>
   );
 }

@@ -10,7 +10,7 @@ services:
       - PORT=5000
 
   frontend:
-    image: tisncutee/cloud-lab-frontend:1.0 # (Câu 52)
+    image: tisncutee/mern-frontend:2.0
     ports:
       - "5173:5173"  # (Câu 54)
     environment:
